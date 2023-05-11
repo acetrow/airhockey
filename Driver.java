@@ -6,8 +6,11 @@ public class Driver
     {
         GameArena g = new GameArena(1200,900);
         
+        //arena
         Rectangle rblue = new Rectangle(68, 230, 1064, 552, "BLUE");
         Rectangle rwhite = new Rectangle(88, 250, 1024, 512, "WHITE");
+        
+        //goals
         Rectangle rgrey = new Rectangle(88, 378, 10, 256, "GREY");
         Rectangle rgrey2 = new Rectangle(1102, 378, 10, 256, "GREY");
         g.addRectangle(rblue);
@@ -48,32 +51,37 @@ public class Driver
         g.addText(score2);
 
         //initial speed of puck
-        double xSpeed = 3;
-        double ySpeed = 3;
+        double xSpeed = 0;
+        double ySpeed = 0;
         
         //moving for right mallet(mulet2)
         while (true) {
-            if (g.leftPressed()) {
+            if (g.leftPressed()) 
+            {
                 mallet2.move(-5, 0);
                 if (mallet2.getXPosition() <= 637)
                 {
                     mallet2.setXPosition(637);
                 }
 
-            } else if (g.rightPressed()) {
+            } else if (g.rightPressed()) 
+            {
                 mallet2.move(5, 0);
                 if (mallet2.getXPosition() >= 1075)
                 {
                     mallet2.setXPosition(1075);
                 }
             }
-            if (g.upPressed()) {
+            if (g.upPressed()) 
+            {
                 mallet2.move(0, -5);
                 if (mallet2.getYPosition() <= 288)
                 {
                     mallet2.setYPosition(288);
                 }
-            } else if (g.downPressed()) {
+            } 
+            else if (g.downPressed()) 
+            {
                 mallet2.move(0, 5);
                 if (mallet2.getYPosition() >= 725)
                 {
@@ -82,26 +90,32 @@ public class Driver
             }
         
             //moving for left mallet(mallet1)
-            if (g.letterPressed('a')) {
+            if (g.letterPressed('a')) 
+            {
                 mallet1.move(-5, 0);
                 if (mallet1.getXPosition() <= 125)
                 {
                     mallet1.setXPosition(125);
                 }
-            } else if (g.letterPressed('d')) {
+            } 
+            else if (g.letterPressed('d')) 
+            {
                 mallet1.move(5, 0);
                 if (mallet1.getXPosition() >= 563)
                 {
                     mallet1.setXPosition(563);
                 }
             }
-            if (g.letterPressed('w')) {
+            if (g.letterPressed('w')) 
+            {
                 mallet1.move(0, -5);
                 if (mallet1.getYPosition() <= 288)
                 {
                     mallet1.setYPosition(288);
                 }
-            } else if (g.letterPressed('s')) {
+            } 
+            else if (g.letterPressed('s')) 
+            {
                 mallet1.move(0, 5);
                 if (mallet1.getYPosition() >= 725)
                 {
@@ -112,27 +126,56 @@ public class Driver
 
             
             //check if puck hits the walls
-            if (puck.getXPosition() < 100 || puck.getXPosition() > 1100) {
+            if (puck.getXPosition() <= 100 || puck.getXPosition() >= 1100) 
+            {
                 xSpeed *= -1;
             }
-            if (puck.getYPosition() < 262 || puck.getYPosition() > 750) {
+            if (puck.getYPosition() <= 262 || puck.getYPosition() >= 750) 
+            {
                 ySpeed *= -1;
             }
 
-            if (puck.collides(mallet2)) {
+            if (puck.collides(mallet2)) 
+            {
                 double[] puckSpeed = puck.deflect(puck, mallet2);
                 xSpeed = puckSpeed[0];
                 ySpeed = puckSpeed[1];
             }
             
-            if (puck.collides(mallet1)) {
+            if (puck.collides(mallet1)) 
+            {
                 double[] puckSpeed = puck.deflect(puck, mallet1);
                 xSpeed = puckSpeed[0];
                 ySpeed = puckSpeed[1];
             }
             puck.move(xSpeed, ySpeed);
 
-        
+            //check if puck hits the left goal
+            if ((puck.getXPosition() <= 98) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
+            {
+                puck.setXPosition(500);
+                puck.setYPosition(506);
+                xSpeed = 0;
+                ySpeed = 0;
+                mallet1.setXPosition(259);
+                mallet1.setYPosition(506);
+                mallet2.setXPosition(941);
+                mallet2.setYPosition(506);
+            }
+
+            //check if puck hits the right goal
+            if ((puck.getXPosition() >= 1102) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
+            {
+                puck.setXPosition(700);
+                puck.setYPosition(506);
+                xSpeed = 0;
+                ySpeed = 0;
+                mallet1.setXPosition(259);
+                mallet1.setYPosition(506);
+                mallet2.setXPosition(941);
+                mallet2.setYPosition(506);
+            }
+            
             
             g.pause();
         }
