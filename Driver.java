@@ -43,17 +43,22 @@ public class Driver
         Text welcome = new Text( "Welcome to Air Hockey!", 20, 88, 150, "WHITE", 1);
         g.addText(welcome);
 
-        Text score1 = new Text( "0", 50, 14, 506, "WHITE", 1);
-        g.addText(score1);
+        //left score
+        Text lScore = new Text( "0", 50, 14, 506, "WHITE", 1);
+        g.addText(lScore);
 
-        Text score2 = new Text( "0", 50, 1156, 506, "WHITE", 1);
-        Text score3 = new Text( "3", 80, 1156, 506, "WHITE", 1);
-        g.addText(score2);
+        //rightscore
+        Text rScore = new Text( "0", 50, 1156, 506, "WHITE", 1);
+        g.addText(rScore);
 
         //initial speed of puck
         double xSpeed = 0;
         double ySpeed = 0;
         
+        //initial score for both
+        int lCountScore = 0;
+        int rCountScore = 0;
+
         //moving for right mallet(mulet2)
         while (true) {
             if (g.leftPressed()) 
@@ -150,9 +155,12 @@ public class Driver
             }
             puck.move(xSpeed, ySpeed);
 
+
+
             //check if puck hits the left goal
-            if ((puck.getXPosition() <= 98) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
+            if ((puck.getXPosition() <= 100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
             {
+                rCountScore += 1;
                 puck.setXPosition(500);
                 puck.setYPosition(506);
                 xSpeed = 0;
@@ -161,11 +169,48 @@ public class Driver
                 mallet1.setYPosition(506);
                 mallet2.setXPosition(941);
                 mallet2.setYPosition(506);
+
+                if (rCountScore == 1)
+                {
+                    rScore.setText("1");
+                }
+
+                else if (rCountScore == 2)
+                {
+                    rScore.setText("2");
+                }
+
+                else if (rCountScore == 3)
+                {
+                    rScore.setText("3");
+                }
+
+                else if (rCountScore == 4)
+                {
+                    rScore.setText("4");
+                }
+
+                else if (rCountScore == 5)
+                {
+                    rScore.setText("5");
+                }
+
+                else if (rCountScore == 6)
+                {
+                    rScore.setText("6");
+                }
+
+                else if (rCountScore == 7)
+                {
+                    rScore.setText("7");
+                }
+                
             }
 
             //check if puck hits the right goal
-            if ((puck.getXPosition() >= 1102) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
+            if ((puck.getXPosition() >= 1100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
             {
+                lCountScore += 1;
                 puck.setXPosition(700);
                 puck.setYPosition(506);
                 xSpeed = 0;
@@ -174,6 +219,43 @@ public class Driver
                 mallet1.setYPosition(506);
                 mallet2.setXPosition(941);
                 mallet2.setYPosition(506);
+
+                
+                if (lCountScore == 1)
+                {
+                    lScore.setText("1");
+                }
+
+                else if (lCountScore == 2)
+                {
+                    lScore.setText("2");
+                }
+
+                else if (lCountScore == 3)
+                {
+                    lScore.setText("3");
+                }
+
+                else if (lCountScore == 4)
+                {
+                    lScore.setText("4");
+                }
+
+                else if (lCountScore == 5)
+                {
+                    lScore.setText("5");
+                }
+
+                else if (lCountScore == 6)
+                {
+                    lScore.setText("6");
+                }
+
+                else if (lCountScore == 7)
+                {
+                    lScore.setText("7");
+                }
+                
             }
             
             
