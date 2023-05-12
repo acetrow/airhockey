@@ -9,7 +9,7 @@ public class Text
 	// The following instance variables define the
 	// information needed to represent a line.
 	// Feel free to more instance variables if you think it will 
-	// support your work... 
+	// support your work...
 	
 	private double xPosition;			// The X coordinate of the start of this text 
 	private double yPosition;			// The Y coordinate of the start of this text 

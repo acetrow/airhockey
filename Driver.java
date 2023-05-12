@@ -1,6 +1,5 @@
-import java.util.Random;
 
-public class Driver 
+public class Driver
 {
     public static void main(String[] args) 
     {
@@ -153,13 +152,15 @@ public class Driver
                 xSpeed = puckSpeed[0];
                 ySpeed = puckSpeed[1];
             }
-            puck.move(xSpeed, ySpeed);
+            puck.move(xSpeed , ySpeed);
 
 
 
             //check if puck hits the left goal
             if ((puck.getXPosition() <= 100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
             {
+                welcome.setColour("GREEN");
+                welcome.setText("Player 2 wins the round!");
                 rCountScore += 1;
                 puck.setXPosition(500);
                 puck.setYPosition(506);
@@ -203,6 +204,9 @@ public class Driver
                 else if (rCountScore == 7)
                 {
                     rScore.setText("7");
+                    welcome.setColour("GREEN");
+                    welcome.setText("Player 2 wins with 7 points! Press Space to start a new game");
+                    g.pause();
                 }
                 
             }
@@ -210,6 +214,8 @@ public class Driver
             //check if puck hits the right goal
             if ((puck.getXPosition() >= 1100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
             {
+                welcome.setColour("GREEN");
+                welcome.setText("Player 1 wins the round!");
                 lCountScore += 1;
                 puck.setXPosition(700);
                 puck.setYPosition(506);
@@ -254,6 +260,9 @@ public class Driver
                 else if (lCountScore == 7)
                 {
                     lScore.setText("7");
+                    welcome.setColour("GREEN");
+                    welcome.setText("Player 1 wins with 7 points! Press Space to start a new game");
+                    g.pause();
                 }
                 
             }
