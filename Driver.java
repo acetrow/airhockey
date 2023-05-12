@@ -152,7 +152,9 @@ public class Driver
                 xSpeed = puckSpeed[0];
                 ySpeed = puckSpeed[1];
             }
-            puck.move(xSpeed , ySpeed);
+            xSpeed *= 0.992; 
+            ySpeed *= 0.992; 
+            puck.move(xSpeed, ySpeed);
 
 
 
@@ -162,7 +164,7 @@ public class Driver
                 welcome.setColour("GREEN");
                 welcome.setText("Player 2 wins the round!");
                 rCountScore += 1;
-                puck.setXPosition(500);
+                puck.setXPosition(549);
                 puck.setYPosition(506);
                 xSpeed = 0;
                 ySpeed = 0;
@@ -206,7 +208,16 @@ public class Driver
                     rScore.setText("7");
                     welcome.setColour("GREEN");
                     welcome.setText("Player 2 wins with 7 points! Press Space to start a new game");
-                    g.pause();
+                    puck.setXPosition(600);
+                    puck.setYPosition(506);
+                    if (g.spacePressed())
+                    {
+                        lCountScore = 0;
+                        lScore.setText("0");
+                        rCountScore = 0;
+                        rScore.setText("0");
+                    }
+    
                 }
                 
             }
@@ -217,7 +228,7 @@ public class Driver
                 welcome.setColour("GREEN");
                 welcome.setText("Player 1 wins the round!");
                 lCountScore += 1;
-                puck.setXPosition(700);
+                puck.setXPosition(651);
                 puck.setYPosition(506);
                 xSpeed = 0;
                 ySpeed = 0;
@@ -262,7 +273,16 @@ public class Driver
                     lScore.setText("7");
                     welcome.setColour("GREEN");
                     welcome.setText("Player 1 wins with 7 points! Press Space to start a new game");
-                    g.pause();
+                    puck.setXPosition(600);
+                    puck.setYPosition(506);
+                    if (g.spacePressed())
+                    {
+                        lCountScore = 0;
+                        lScore.setText("0");
+                        rCountScore = 0;
+                        rScore.setText("0");
+                    }
+
                 }
                 
             }
