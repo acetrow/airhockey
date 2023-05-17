@@ -1,31 +1,28 @@
-import java.io.File;
-import java.io.IOException;
-
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
+import javax.sound.sampled.*;
+import java.io.*;
 
 public class Sound {
     private Clip clip;
 
-    public void Sound(String fileName) {
+    public Sound(String filePath) {
+        loadSound(filePath);
+    }
 
-        
+    private void loadSound(String filePath) {
         try {
-            InputStream is = getClass().getResourceAsStream(fileName);
-            AudioInputStream ais = AudioSystem.getAudioInputStream(is);
+            File soundFile = new File(filePath);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
             clip = AudioSystem.getClip();
-            clip.open(ais);
-        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
+            clip.open(audioInputStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
 
-    public void play() {
-        clip.setFramePosition(0);
-        clip.start();
+    public void playSound() {
+        if (clip != null) {
+            clip.setFramePosition(0);
+            clip.start();
+        }
     }
 }

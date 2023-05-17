@@ -1,3 +1,5 @@
+import java.io.*;
+import javax.sound.sampled.*;
 
 public class Driver
 {
@@ -49,6 +51,14 @@ public class Driver
         //rightscore
         Text rScore = new Text( "0", 50, 1156, 506, "WHITE", 1);
         g.addText(rScore);
+    
+        Sound applause = new Sound("applause.wav");
+        Sound bounce = new Sound("bounce.wav");
+        Sound drumroll = new Sound("drumroll.wav");
+        Sound fanfare = new Sound("fanfare.wav");
+        Sound hit = new Sound("hit.wav");
+
+        //play sound at the start of a new round
 
         //initial speed of puck
         double xSpeed = 0;
@@ -62,17 +72,27 @@ public class Driver
         //to make the loop continue, change starter back to 0 
         int starter = 0;
 
-
+        //play sound at the start
+        int sound = 0;
+        
         while (true)
         {
             while (starter == 0) 
             {
-
+                
+                while (sound <= 16)
+                {
+                    fanfare.playSound();
+                    g.pause();
+                    sound ++;
+                }
+                
                 //initialize mallet speed
                 int malletSpeed = 7;
 
 
-                //moving for right mallet(mallet2)
+                //moving for right mallet(mallet2)                    
+
                 if (g.leftPressed()) 
                 {
                     mallet2.move(-malletSpeed, 0);
@@ -143,17 +163,36 @@ public class Driver
     
                 
                 //check if puck hits the walls
-                if (puck.getXPosition() <= 100 || puck.getXPosition() >= 1100) 
+                if (puck.getXPosition() <= 100 ) 
                 {
+                    puck.setXPosition(100);
+                    hit.playSound();
+                    xSpeed *= -1;
+
+                }
+                if (puck.getXPosition() >= 1100)
+                {
+                    puck.setXPosition(1100);
+                    hit.playSound();
                     xSpeed *= -1;
                 }
-                if (puck.getYPosition() <= 262 || puck.getYPosition() >= 750) 
+                if (puck.getYPosition() <= 262) 
+                {   
+                    puck.setYPosition(262);
+                    hit.playSound();
+                    ySpeed *= -1;
+
+                }
+                if (puck.getYPosition() >= 750)
                 {
+                    puck.setYPosition(750);
+                    hit.playSound();
                     ySpeed *= -1;
                 }
     
                 if (puck.collides(mallet2)) 
                 {
+                    bounce.playSound();
                     double[] puckSpeed = puck.deflect(puck, mallet2);
                     xSpeed = puckSpeed[0];
                     ySpeed = puckSpeed[1];
@@ -161,6 +200,7 @@ public class Driver
                 
                 if (puck.collides(mallet1)) 
                 {
+                    bounce.playSound();
                     double[] puckSpeed = puck.deflect(puck, mallet1);
                     xSpeed = puckSpeed[0];
                     ySpeed = puckSpeed[1];
@@ -175,6 +215,7 @@ public class Driver
                 //check if puck hits the left goal
                 if ((puck.getXPosition() <= 100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
                 {
+
                     welcome.setColour("GREEN");
                     welcome.setText("Player 2 wins the round!");
                     rCountScore += 1;
@@ -189,37 +230,44 @@ public class Driver
     
                     if (rCountScore == 1)
                     {
+                        applause.playSound();
                         rScore.setText("1");
+                    
                     }
     
                     else if (rCountScore == 2)
                     {
+                        applause.playSound();
                         rScore.setText("2");
                     }
     
                     else if (rCountScore == 3)
                     {
+                        applause.playSound();
                         rScore.setText("3");
                     }
     
                     else if (rCountScore == 4)
                     {
+                        applause.playSound();
                         rScore.setText("4");
                     }
     
                     else if (rCountScore == 5)
                     {
+                        applause.playSound();
                         rScore.setText("5");
                     }
     
                     else if (rCountScore == 6)
                     {
+                        applause.playSound();
                         rScore.setText("6");
                     }
     
                     else if (rCountScore == 7)
                     {
-                        
+                        drumroll.playSound();   
                         rScore.setText("7");
                         welcome.setColour("GREEN");
                         welcome.setText("Player 2 wins with 7 points! Press Space to start a new game");
@@ -249,38 +297,44 @@ public class Driver
                     
                     if (lCountScore == 1)
                     {
+                        applause.playSound();
                         lScore.setText("1");
                     }
     
                     else if (lCountScore == 2)
                     {
+                        applause.playSound();
                         lScore.setText("2");
     
                     }
     
                     else if (lCountScore == 3)
                     {
+                        applause.playSound();
                         lScore.setText("3");
                     }
     
                     else if (lCountScore == 4)
                     {
+                        applause.playSound();
                         lScore.setText("4");
                     }
     
                     else if (lCountScore == 5)
                     {
+                        applause.playSound();
                         lScore.setText("5");
                     }
     
                     else if (lCountScore == 6)
                     {
+                        applause.playSound();
                         lScore.setText("6");
                     }
     
                     else if (lCountScore == 7)
                     {
-    
+                        drumroll.playSound();    
                         lScore.setText("7");
                         welcome.setColour("GREEN");
                         welcome.setText("Player 1 wins with 7 points! Press Space to start a new game");
@@ -289,8 +343,6 @@ public class Driver
                         starter = 1;
     
                     }
-
-                    
                     
                 }
                 
@@ -301,7 +353,8 @@ public class Driver
             }
             
             
-            while (!g.spacePressed()) {
+            while (!g.spacePressed()) 
+            {
                 g.pause();
             }
             lCountScore = 0;
@@ -310,7 +363,8 @@ public class Driver
             rScore.setText("0");
             welcome.setText("Welcome to Air Hockey!");
             starter = 0;
-            }
+            fanfare.playSound();
+        }
 
     }
 
