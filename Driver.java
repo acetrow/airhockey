@@ -27,8 +27,8 @@ public class Driver
         g.addBall(center);
         
         //white center arena
-        Ball bw = new Ball( 600, 506, 100, "WHITE");
-        g.addBall(bw);
+        Ball bwhite = new Ball( 600, 506, 100, "WHITE");
+        g.addBall(bwhite);
 
         Ball mallet1 = new Ball( 259, 506, 75, "BLUE");
         g.addBall(mallet1);
@@ -76,13 +76,14 @@ public class Driver
         int fanfaresound = 0;
         
 
-        
-        boolean SoundOn = true; // track sound on or off
-        int drumrollsound = 0;
+        //toggle sound on or off
+        boolean SoundOn = true; 
+
+        //always loop
         while (true)
         {
             
-
+            //start the loop
             while (starter == 0) 
             {
                 if (g.letterPressed('m')) 
@@ -196,21 +197,21 @@ public class Driver
                 
                 //cheat code
                 //r to increase mallet1 size and t to decrease
-                if (g.letterPressed('r'))
+                if (g.letterPressed('r') && (mallet1.getSize() <= 250))
                 {
                     mallet1.setSize(mallet1.getSize() + 3);
                 }
-                if (g.letterPressed('t'))
+                if (g.letterPressed('t') && (mallet1.getSize() >= 50))
                 {
                     mallet1.setSize(mallet1.getSize() - 3);
                 }
 
                 //o to increase mallet2 size and p to decrease
-                if (g.letterPressed('o'))
+                if (g.letterPressed('o') && (mallet1.getSize() <= 250))
                 {
                     mallet2.setSize(mallet2.getSize() + 3);
                 }
-                if (g.letterPressed('p'))
+                if (g.letterPressed('p') && (mallet1.getSize() >= 50))
                 {
                     mallet2.setSize(mallet2.getSize() - 3);
                 }
@@ -224,7 +225,7 @@ public class Driver
 
     
                 
-                //check if puck hits the walls
+                //check if puck hits the left walls
                 if (puck.getXPosition() <= 100 ) 
                 {
                     //puck left border
@@ -237,6 +238,7 @@ public class Driver
                     xSpeed *= -1;
 
                 }
+                //check if puck hits the right walls
                 if (puck.getXPosition() >= 1100)
                 {
                     //puck right border
@@ -248,6 +250,7 @@ public class Driver
                     //puck bounces
                     xSpeed *= -1;
                 }
+                //check if puck hits the upward walls
                 if (puck.getYPosition() <= 262) 
                 {   
                     //puck up border
@@ -260,6 +263,7 @@ public class Driver
                     ySpeed *= -1;
 
                 }
+                //check if puck hits the downward walls
                 if (puck.getYPosition() >= 750)
                 {
                     //puck down border
@@ -294,6 +298,7 @@ public class Driver
                     {
                         bounce.playSound();
                     }
+                    //set new puck speed according to calculations from deflect method (ball class)
                     double[] puckSpeed = puck.deflect(puck, mallet1);
                     xSpeed = puckSpeed[0];
                     ySpeed = puckSpeed[1];
@@ -308,20 +313,22 @@ public class Driver
                 //check if puck hits the left goal
                 if ((puck.getXPosition() <= 100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
                 {
-
+                    //change welcome text to winning the round
                     welcome.setColour("GREEN");
                     welcome.setText("Player 2 wins the round!");
                     rCountScore += 1;
                     //set initial position for puck and mallet
                     puck.setXPosition(549);
                     puck.setYPosition(506);
+                    //initialize puck speed to 0
                     xSpeed = 0;
                     ySpeed = 0;
                     mallet1.setXPosition(259);
                     mallet1.setYPosition(506);
                     mallet2.setXPosition(941);
                     mallet2.setYPosition(506);
-    
+                    
+                    //play applause sound if theres a goal
                     if (rCountScore == 1)
                     {
                         if (SoundOn)
@@ -377,7 +384,8 @@ public class Driver
                         }
                         rScore.setText("6");
                     }
-    
+                    
+                    //if mallet1 wins
                     else if (rCountScore == 7)
                     {
                         if (SoundOn)
@@ -390,6 +398,7 @@ public class Driver
                         welcome.setText("Player 2 wins with 7 points! Press Space to start a new game");
                         puck.setXPosition(600);
                         puck.setYPosition(506);
+                        //change starter to 1 to stop the loop
                         starter = 1;
                         
                     }
@@ -400,11 +409,14 @@ public class Driver
                 //check if puck hits the right goal
                 if ((puck.getXPosition() >= 1100) && ((puck.getYPosition() >= 378) && (puck.getYPosition() <= 634)))
                 {
+                    //change welcome text to winning the round
                     welcome.setColour("GREEN");
                     welcome.setText("Player 1 wins the round!");
                     lCountScore += 1;
+                    //set puck and mallet position to their initial position
                     puck.setXPosition(651);
                     puck.setYPosition(506);
+                    //set puck speed to 0
                     xSpeed = 0;
                     ySpeed = 0;
                     mallet1.setXPosition(259);
@@ -489,7 +501,7 @@ public class Driver
                 
     
                 
-                
+            //animate everything moving
             g.pause();
             }
             
