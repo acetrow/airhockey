@@ -98,7 +98,7 @@ public class Driver
                 } 
                 
                 //play sound in the beginning
-                if (fanfaresound <= 20)
+                if (fanfaresound <= 2)
                 {
                     fanfare.playSound();
                     fanfaresound++;
