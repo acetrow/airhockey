@@ -207,11 +207,11 @@ public class Driver
                 }
 
                 //o to increase mallet2 size and p to decrease
-                if (g.letterPressed('o') && (mallet1.getSize() <= 250))
+                if (g.letterPressed('o') && (mallet2.getSize() <= 250))
                 {
                     mallet2.setSize(mallet2.getSize() + 3);
                 }
-                if (g.letterPressed('p') && (mallet1.getSize() >= 50))
+                if (g.letterPressed('p') && (mallet2.getSize() >= 50))
                 {
                     mallet2.setSize(mallet2.getSize() - 3);
                 }
